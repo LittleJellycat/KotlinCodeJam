@@ -21,7 +21,7 @@ fun placeBishops(rows: MutableList<Int>, columns: MutableList<Int>, fieldSize: I
     if (rows.isEmpty()) return emptyList()
     val result = mutableListOf<Pair<Int, Int>>()
     val i = rows.first()
-    val j = columns.filter { it + (fieldSize - 1 + i) % 2 == 0 }
+    val j = columns.filter { (it + (fieldSize - 1 + i)) % 2 == 0 }
             .sortedByDescending { abs(i) + abs(it) }
             .find { abs(i) + abs(it) < fieldSize }
     if (j != null) {
@@ -74,5 +74,5 @@ fun main(args: Array<String>) {
         println("Case #$i: $score $placed")
         models.forEach { println("${it.first} ${it.second} ${it.third}") }
     }
-    sc.close()
+
 }
