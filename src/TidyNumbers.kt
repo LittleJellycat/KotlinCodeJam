@@ -1,29 +1,19 @@
 import java.util.*
-import kotlin.collections.ArrayList
 
-
-fun findLastTidyNumber(number: Long): String {
+private fun findLastTidyNumber(number: Long): String {
     if (number < 10) return number.toString()
-    var n = number
-    val result = ArrayList<Int>()
-    while (n != 0L) {
-        result.add((n % 10).toInt())
-        n /= 10
-    }
+    val result = generateSequence(number) { it / 10 }.takeWhile { it > 0 }.map { it % 10 }.toMutableList()
     for (i in result.size - 1 downTo 1) {
         if (result[i] > result[i - 1]) {
-            var k = i
-            while (k < result.size - 1 && result[k] == result[k + 1]) {
-                k++
-            }
+            val k = result.lastIndexOf(result[i])
             result[k]--
             for (j in k - 1 downTo 0) {
                 result[j] = 9
             }
-            if (result[result.size - 1] == 0) {
+            if (result[result.size - 1] == 0L) {
                 result.removeAt(result.size - 1)
             }
-            return result.joinToString("").reversed()
+            break
         }
     }
     return result.joinToString("").reversed()
@@ -31,12 +21,8 @@ fun findLastTidyNumber(number: Long): String {
 
 fun main(args: Array<String>) {
     val sc = Scanner(System.`in`)
-    val numberOfTestCases = sc.nextInt()
-    val numbers = ArrayList<Long>()
-    for (i in 0..numberOfTestCases - 1) {
-        numbers.add(sc.nextLong())
-    }
+    val numbers = (1..sc.nextInt()).map { sc.nextLong() }.toList()
     sc.close()
-    val out = numbers.map { findLastTidyNumber(it) }
-    (0..numbers.size - 1).forEach { i -> println("Case #${i + 1}: " + out[i]) }
+    val result = numbers.map { findLastTidyNumber(it) }
+    result.forEachIndexed { i, it -> println("Case #${i + 1}: $it") }
 }

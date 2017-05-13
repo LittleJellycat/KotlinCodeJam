@@ -1,8 +1,7 @@
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-fun findLastStallConfiguration(numberOfStalls: Long, numberOfPeople: Long): Pair<Long, Long> {
+private fun findLastStallConfiguration(numberOfStalls: Long, numberOfPeople: Long): Pair<Long, Long> {
     val configurationsMap = TreeMap<Long, Long>()
     configurationsMap[numberOfStalls] = 1
     var count = 0L
@@ -23,12 +22,8 @@ fun findLastStallConfiguration(numberOfStalls: Long, numberOfPeople: Long): Pair
 
 fun main(args: Array<String>) {
     val sc = Scanner(System.`in`)
-    val numberOfTestCases = sc.nextInt()
-    val stallsToPeopleList = ArrayList<Pair<Long, Long>>()
-    for (i in 0..numberOfTestCases - 1) {
-        stallsToPeopleList.add(sc.nextLong() to sc.nextLong())
-    }
+    val stallsToPeopleList = (1..sc.nextInt()).map { sc.nextLong() to sc.nextLong() }.toList()
     sc.close()
-    val out = stallsToPeopleList.map { findLastStallConfiguration(it.first, it.second) }
-    (0..stallsToPeopleList.size - 1).forEach { i -> println("Case #${i + 1}: ${out[i].first} ${out[i].second}") }
+    val result = stallsToPeopleList.map { findLastStallConfiguration(it.first, it.second) }
+    result.forEachIndexed { i, it -> println("Case #${i + 1}: ${it.first} ${it.second}") }
 }

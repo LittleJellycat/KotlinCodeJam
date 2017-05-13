@@ -2,9 +2,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-fun findNumberOfFlippings(pancakeRows: String, flipperSize: Int): Int {
-    val pancakesArray = pancakeRows.toCharArray()
-    var flippingsNumber = 0
+private fun findNumberOfFlips(pancakeRow: String, flipperSize: Int): Int {
+    val pancakesArray = pancakeRow.toCharArray()
+    var flipNumber = 0
     (0..pancakesArray.size - 1)
             .asSequence()
             .filter { pancakesArray[it] == '-' }
@@ -17,22 +17,18 @@ fun findNumberOfFlippings(pancakeRows: String, flipperSize: Int): Int {
                             pancakesArray[j] = '+'
                         }
                     }
-                    flippingsNumber++
+                    flipNumber++
                 } else {
                     return -1
                 }
             }
-    return flippingsNumber
+    return flipNumber
 }
 
 fun main(args: Array<String>) {
     val sc = Scanner(System.`in`)
-    val numberOfTestCases = sc.nextInt()
-    val pancakeRows = ArrayList<Pair<String, Int>>()
-    for (i in 0..numberOfTestCases - 1) {
-        pancakeRows.add(sc.next() to sc.nextInt())
-    }
+    val pancakeRows = (1..sc.nextInt()).map { sc.next() to sc.nextInt() }.toList()
     sc.close()
-    val out = pancakeRows.map { findNumberOfFlippings(it.first, it.second) }
-    (0..pancakeRows.size - 1).forEach { i -> println("Case #${i + 1}: " + if (out[i] != -1) out[i] else "IMPOSSIBLE") }
+    val result = pancakeRows.map { findNumberOfFlips(it.first, it.second) }
+    (0..pancakeRows.size - 1).forEach { i -> println("Case #${i + 1}: " + if (result[i] != -1) result[i] else "IMPOSSIBLE") }
 }
