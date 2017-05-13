@@ -6,5 +6,5 @@
 
 -  A. [Oversized Pancake Flipper](../master/src/OversizedPancakeFlipper.kt)
 -  B. [Tidy Numbers](../master/src/TidyNumbers.kt)
--  C. [BathroomStalls](../master/src/BathroomStalls.kt)
+-  C. [Bathroom Stalls](../master/src/BathroomStalls.kt)
 -  D. [Fashion Show](../master/src/FashionShow.kt)
